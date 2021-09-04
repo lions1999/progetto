@@ -1,0 +1,206 @@
+@charset "ISO-8859-1";
+
+*{
+	margin: 0;
+	padding: 0;
+}
+
+html, body{
+	font-family: 'Segoe UI',Thoma, Geneva, Verdana, sans-serif;
+}
+
+a {
+	color: orange;
+	text-decoration: none;
+}
+
+
+	/* HEADER  */
+
+
+#navbar{
+	background: #6192d6;
+}
+
+#navbar .container{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+
+#secondary-navbar .secondary-container{
+	display: flex;
+	flex-direction: row-reverse;
+}
+
+
+#navbar .container ul{
+	display: flex;
+	align-self: center;
+	padding-right: 1rem;
+	}
+
+#navbar .container ul li,
+#secondary-navbar .secondary-container ul li{
+	list-style: none;
+}
+
+#navbar .container ul li a,
+#secondary-navbar .secondary-container ul li a{
+	padding: 20px;
+	display: block;
+}
+
+#navbar .container h1{
+ text-transform: uppercase;
+ color: #10e;
+ align-content: flex-start;
+ padding-left: 1rem;
+}
+
+#navbar ul li a:hover,
+#navbar ul li a.current,
+#secondary-navbar ul li a:hover,
+#secondary-navbar ul li a.current{
+	background: #315588;
+	color: orange;
+}
+
+
+#secondary-navbar{
+	background: orange;		
+}
+
+
+#secondary-navbar .secondary-container ul{
+	display: flex;
+	padding-right: 1rem;
+	}
+
+
+#secondary-navbar ul li a{
+	color: #315588;
+	text-decoration: none;
+}
+
+	/* UTILITY */
+
+
+.btn{
+	display: inline-block;
+	font-size: 18px;
+	color: #000;
+	background: #315588;
+	padding: 3px 5px;
+	border: none;
+}
+
+.btn:hover{
+	background: orange;
+	color: #315588;
+}
+
+
+	/* SECTION */
+
+	
+#showcase .container{
+	display: flex;
+	flex-direction: column;
+	height: 70vh;
+	background: url('../img/applicazione-condomini.jpg') no-repeat center center/cover; 	justify-content: center;
+	align-items: center;
+}
+
+#showcase .container h1{
+	color: #10e;
+	font-size: 30px;
+}
+
+#showcase .container h1 a{
+	color: orange;
+}
+
+
+	/* PROFILE SECTION */
+	
+#profile-showcase{
+	background: #315588;
+	width: 100%;
+}	
+
+#profile-showcase .profile-container{
+	display: flex;
+	flex-direction: row;
+	justify-content: left;
+}
+
+#profile-showcase img{
+	width: 90px;
+	align-items: center;
+	border-radius: 50%; 
+}
+
+#profile-showcase .profile-container .profile-img{
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	margin: 10px 0  0 20px;
+}
+
+#profile-showcase .profile-container .profile-img p{
+	display: flex;
+}
+
+#profile-showcase .profile-container .profile-info{
+	display: flex;
+	flex-direction: column;
+	justify-content: left;
+}
+
+#profile-showcase .profile-container .profile-info p{
+	padding: 15px;
+	font-size: 26px;
+}
+
+	/* CONDOMINIUM SECTION */
+	
+#condominium-showcase{
+	background: #315588;
+	width: 100%;
+}
+
+#condominium-showcase .condominium-container{
+	display: flex;
+	flex-direction: row;
+	justify-content: left;
+}	
+
+#condominium-showcase img{
+	width: 90px;
+	align-items: center;
+	border-radius: 50%; 
+}
+
+#condominium-showcase .condominium-container .condominium-img{
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	margin: 10px 0  0 20px;
+}
+
+#condominium-showcase .condominium-container .condominium-img p{
+	display: flex;
+}
+
+#condominium-showcase .condominium-container .condominium-info{
+	display: flex;
+	flex-direction: column;
+	justify-content: left;
+}
+
+#condominium-showcase .condominium-container .condominium-info p{
+	padding: 15px;
+	font-size: 26px;
+}

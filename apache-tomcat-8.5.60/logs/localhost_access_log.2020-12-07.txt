@@ -1,0 +1,13 @@
+127.0.0.1 - - [07/Dec/2020:11:29:03 +0100] "GET / HTTP/1.1" 200 11354
+0:0:0:0:0:0:0:1 - - [07/Dec/2020:11:29:06 +0100] "GET /jspexample/index.jsp HTTP/1.1" 200 1155
+0:0:0:0:0:0:0:1 - - [07/Dec/2020:11:29:06 +0100] "GET /jspexample/js/jquery.min.js HTTP/1.1" 200 97162
+0:0:0:0:0:0:0:1 - - [07/Dec/2020:11:29:06 +0100] "GET /jspexample/css/bootstrap.min.css HTTP/1.1" 200 121200
+0:0:0:0:0:0:0:1 - - [07/Dec/2020:11:29:06 +0100] "GET /jspexample/js/bootstrap.min.js HTTP/1.1" 200 37045
+0:0:0:0:0:0:0:1 - - [07/Dec/2020:11:29:06 +0100] "GET /jspexample/css/style.css HTTP/1.1" 200 40
+0:0:0:0:0:0:0:1 - - [07/Dec/2020:11:29:07 +0100] "GET /favicon.ico HTTP/1.1" 200 21630
+0:0:0:0:0:0:0:1 - - [07/Dec/2020:11:29:22 +0100] "POST /jspexample/index.jsp HTTP/1.1" 200 41
+0:0:0:0:0:0:0:1 - - [07/Dec/2020:11:29:26 +0100] "GET /jspexample/index.jsp HTTP/1.1" 200 1155
+0:0:0:0:0:0:0:1 - - [07/Dec/2020:11:29:29 +0100] "POST /jspexample/index.jsp HTTP/1.1" 200 1194
+0:0:0:0:0:0:0:1 - - [07/Dec/2020:11:29:34 +0100] "POST /jspexample/index.jsp HTTP/1.1" 200 41
+0:0:0:0:0:0:0:1 - - [07/Dec/2020:11:31:34 +0100] "GET /jspexample/index.jsp HTTP/1.1" 200 1155
+0:0:0:0:0:0:0:1 - - [07/Dec/2020:11:31:38 +0100] "POST /jspexample/index.jsp HTTP/1.1" 200 44

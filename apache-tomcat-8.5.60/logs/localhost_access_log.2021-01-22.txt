@@ -1,0 +1,13 @@
+127.0.0.1 - - [22/Jan/2021:10:54:23 +0100] "GET / HTTP/1.1" 200 11354
+0:0:0:0:0:0:0:1 - - [22/Jan/2021:10:54:23 +0100] "GET /Condominium/ HTTP/1.1" 200 2126
+0:0:0:0:0:0:0:1 - - [22/Jan/2021:10:54:23 +0100] "GET /Condominium/css/bootstrap.min.css HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [22/Jan/2021:10:54:23 +0100] "GET /Condominium/js/bootstrap.min.js HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [22/Jan/2021:10:54:29 +0100] "GET /Condominium/Register.jsp HTTP/1.1" 200 2933
+127.0.0.1 - - [22/Jan/2021:12:14:14 +0100] "GET / HTTP/1.1" 200 11354
+0:0:0:0:0:0:0:1 - - [22/Jan/2021:12:14:15 +0100] "GET /Condominium/ HTTP/1.1" 200 2126
+0:0:0:0:0:0:0:1 - - [22/Jan/2021:12:14:29 +0100] "GET /Condominium/Register.jsp HTTP/1.1" 200 2933
+127.0.0.1 - - [22/Jan/2021:12:42:37 +0100] "GET / HTTP/1.1" 200 11354
+0:0:0:0:0:0:0:1 - - [22/Jan/2021:12:42:37 +0100] "GET /Condominium/WEB-INF/classes/logic/dao/CondominiumDAO.java HTTP/1.1" 404 682
+127.0.0.1 - - [22/Jan/2021:13:06:36 +0100] "GET / HTTP/1.1" 200 11354
+0:0:0:0:0:0:0:1 - - [22/Jan/2021:13:06:36 +0100] "GET /Condominium/ HTTP/1.1" 200 2126
+0:0:0:0:0:0:0:1 - - [22/Jan/2021:13:06:44 +0100] "GET /Condominium/Register.jsp HTTP/1.1" 200 2933

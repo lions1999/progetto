@@ -1,0 +1,10 @@
+127.0.0.1 - - [15/Mar/2021:15:58:01 +0100] "GET / HTTP/1.1" 200 11354
+0:0:0:0:0:0:0:1 - - [15/Mar/2021:15:58:03 +0100] "GET /Condominium/ HTTP/1.1" 200 2126
+0:0:0:0:0:0:0:1 - - [15/Mar/2021:15:58:03 +0100] "GET /Condominium/js/jquery.min.js HTTP/1.1" 200 97162
+0:0:0:0:0:0:0:1 - - [15/Mar/2021:15:58:03 +0100] "GET /Condominium/css/bootstrap.min.css HTTP/1.1" 200 153111
+0:0:0:0:0:0:0:1 - - [15/Mar/2021:15:58:03 +0100] "GET /Condominium/css/style.css HTTP/1.1" 200 40
+0:0:0:0:0:0:0:1 - - [15/Mar/2021:15:58:03 +0100] "GET /Condominium/js/bootstrap.min.js HTTP/1.1" 200 62411
+0:0:0:0:0:0:0:1 - - [15/Mar/2021:15:58:03 +0100] "GET /favicon.ico HTTP/1.1" 200 21630
+0:0:0:0:0:0:0:1 - - [15/Mar/2021:15:58:07 +0100] "GET /Condominium/ HTTP/1.1" 200 2126
+0:0:0:0:0:0:0:1 - - [15/Mar/2021:15:58:08 +0100] "GET /Condominium/ HTTP/1.1" 200 2126
+0:0:0:0:0:0:0:1 - - [15/Mar/2021:15:58:12 +0100] "GET /Condominium/? HTTP/1.1" 200 2126
