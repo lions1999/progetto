@@ -9,7 +9,7 @@ public class UserSingleton {
 	private Owner owner = null;*/	
 	private Role role;
 	private String code;	
-	private List<Post> list;
+	private Post post;
 
 	private static UserSingleton instance = null;
 
@@ -48,26 +48,26 @@ public class UserSingleton {
 	}
 
 	public Role getRole() {
-		return role;
+		return this.role;
 	}
 
 	public void setRole(Role role) {
 		this.role = role;
 	}
 	
-	public List<Post> getList() {
-		return list;
+	public Post getPost() {
+		return this.post;
 	}
-
-	public void setList(List<Post> list) {
-		this.list = list;
+	
+	public void setPost(Post post) {
+		 this.post = post;
 	}
 
 	public void clearState() {
 		this.setCode(null);
 		this.setRole(null);
 		this.setAdministrator(null);
-		this.setList(null);
+		this.setPost(null);
 	}
 
 }

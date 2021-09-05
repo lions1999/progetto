@@ -38,8 +38,6 @@ public class MainView extends Application implements Initializable {
 	@FXML
 	private Button btnHome;
 	@FXML
-	private Button btnMessage;
-	@FXML
 	private Button btnMeeting;
 	@FXML
 	private Button btnApartmentinfo;
@@ -56,8 +54,9 @@ public class MainView extends Application implements Initializable {
 	@FXML
 	private ImageView imgUserPost;
     @FXML
-    void btnHomeClick(ActionEvent event) {
+    void btnHomeClick(ActionEvent event) { 
     	Pane pane = view.getPage("HomePage");
+    	paneSize(pane);
     	mainPage.setCenter(pane);
     }
     @FXML
@@ -68,6 +67,7 @@ public class MainView extends Application implements Initializable {
     @FXML
     void btnMeetingClick(ActionEvent event) {
     	Pane pane = view.getPage("Meeting");
+    	paneSize(pane);
     	mainPage.setCenter(pane);
     }
     @FXML
@@ -79,18 +79,33 @@ public class MainView extends Application implements Initializable {
 	
     @Override
     public void initialize(URL location, ResourceBundle resources){
-    	lbnome.setText(sg.getAdministrator().getName());		  			
+    	lbnome.setText(sg.getAdministrator().getName());
+       	btnColor(btnHome);
+       	btnColor(btnMeeting);
+       	btnColor(btnSignout);
+       	btnColor(btnApartmentinfo);       
 	  } 
 
-	  
+	private void paneSize(Pane pane) {
+		pane.setMinHeight(1052);
+    	pane.setMinWidth(1360);
+	}  
+    
+    
+    private void btnColor(Button btn) {
+    	btn.setOnMouseEntered(event -> {
+       		btn.setStyle("-fx-background-color : #0A0E3F");
+        });
+    	btn.setOnMouseExited(event -> {
+       		btn.setStyle("-fx-background-color : #0C39FF");
+        });
+    }
+    
+    
 	@Override
 	public void start(Stage primaryStage) throws Exception{		
 		view.loadPage("Main", primaryStage);
 		primaryStage.centerOnScreen();
-	}
-		
-	public static void main(String[] args) {
-		launch(args);
 	}
 
 }

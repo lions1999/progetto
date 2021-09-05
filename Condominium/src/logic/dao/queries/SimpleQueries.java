@@ -6,15 +6,15 @@ import java.sql.Statement;
 
 
 public class SimpleQueries {
-	
+		
 	public static ResultSet selectListPost(Statement stmt,String condominiumCode) throws SQLException{
-		String sql="SELECT post_id FROM `posts` WHERE post_cc='"+condominiumCode+"'";
+		String sql="SELECT post_usr,post_txt,post_img,post_lbl FROM posts where post_id IN (SELECT  post_id FROM `posts` WHERE post_cc='"+condominiumCode+"')";
 		System.out.println(sql);
 		return stmt.executeQuery(sql);
 	}
 	
-	public static ResultSet selectPost(Statement stmt,String postId)throws SQLException{
-		String sql= "SELECT post_usr,post_txt,post_img,post_lbl FROM posts where post_id = '" + postId + "'";
+	public static ResultSet selectNameByID(Statement stmt, String id)  throws SQLException {
+		String sql= "SELECT user_name FROM users WHERE user_id='"+id+"'";
 		System.out.println(sql);
 		return stmt.executeQuery(sql);
 	}

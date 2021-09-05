@@ -6,7 +6,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.view.MeetingView">
    <children>
-      <Label layoutX="198.0" layoutY="97.0" text="Meeting">
+      <Label layoutY="97.0" text="Meeting" AnchorPane.leftAnchor="0.0">
          <font>
             <Font size="87.0" />
          </font>

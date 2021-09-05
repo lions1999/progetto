@@ -25,6 +25,7 @@ public class SqlDAO {
 	
 	private Role role;
 	private String roleId;
+	private String usrName;
 	private String getID;
 	private String pwd;
 	private String condominiumCode;
@@ -59,7 +60,7 @@ public class SqlDAO {
 				String userEmail = rs.getString("user_email");
 				String userPwd = rs.getString("user_pwd");
 				String userCc = rs.getString("user_cc");				
-				admin = new Administrator(userId,userName,userEmail,userPwd,userCc,null);
+				admin = new Administrator(userId,userName,userEmail,userPwd,userCc,checkListPost(userCc));
             }									
 		} finally {
 			disconnect();
@@ -162,34 +163,50 @@ public class SqlDAO {
 		return input;
 	}
 
-	public Post checkPost(String postId) throws SQLException{
-		Post post = null;
-		ResultSet rs = null; 
-		try {   	
-			connect();       
-			rs = SimpleQueries.selectPost(stmt,postId);                              	
-			if(rs.next()) {       	
-				String postUsr = rs.getString("post_usr");
-				String postText = rs.getString("post_txt");
-				InputStream postImg = rs.getBinaryStream("post_img");			
-				post = new Post(postUsr,postText,postImg);
-			}      
-		} finally {
-			disconnect();
-		}   
-		return post;
+//	public Post checkPost(String postId) throws SQLException{
+//		Post post = null;
+//		ResultSet rs = null; 
+//		try {   	
+//			connect();       
+//			rs = SimpleQueries.selectPost(stmt,postId);                              	
+//			if(rs.next()) {       	
+//				String postUsr = rs.getString("post_usr");
+//				String postText = rs.getString("post_txt");
+//				InputStream postImg = rs.getBinaryStream("post_img");			
+//				post = new Post(postUsr,postText,postImg);
+//			}      
+//		} finally {
+//			disconnect();
+//		}   
+//		return post;
+//	}
+	public String checkNameByID(String id)throws SQLException {
+		try {    	
+			connect();         
+			ResultSet rs = SimpleQueries.selectNameByID(stmt, id);                        
+			if(rs.next()) {
+				this.usrName = rs.getString("user_name");
+			}        
+	    } finally {    	
+	            disconnect();
+	    }
+		return this.usrName;
 	}
 	
-	
-	public List<String> checkListPost(String codiceCondominio)throws SQLException{
-		List<String> list = new ArrayList<>();
+	public List<Post> checkListPost(String codiceCondominio)throws SQLException{
+		List<Post> list = new ArrayList<>();
+		Post post = null;
 		ResultSet rs = null;
 		try {
 			connect();
 			rs = SimpleQueries.selectListPost(stmt,codiceCondominio);
-			while(rs.next()) {				
-				String postId = rs.getString("post_id");
-				list.add(postId);
+			while(rs.next()) {			
+				String postUsr = rs.getString("post_usr");
+				String postText = rs.getString("post_txt");
+				InputStream postImg = rs.getBinaryStream("post_img");			
+				post = new Post(checkNameByID(postUsr),postText,postImg);
+				list.add(post);
+				
 			}
 		} finally {
 			disconnect();
