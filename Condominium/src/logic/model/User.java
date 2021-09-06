@@ -1,23 +1,17 @@
 package logic.model;
 
-import java.util.List;
-
 public class User {
 
 	private String userID;
     private String name;
 	private String email;
 	private String password;
-	private String condominiumCode;
-	private List<Post> post;
 	
-	public  User(String userID,String name,String email,String password,String condominiumCode, List<Post> post){
+	public  User(String userID,String name,String email,String password){
 		this.setUserID(userID);
 		this.setName(name);
 		this.setEmail(email);
 		this.setPassword(password);
-		this.setcondominiumCode(condominiumCode);
-		this.setPostList(post);
 	}
 	
 	public String getUserID() {
@@ -52,20 +46,5 @@ public class User {
         this.password = password;
     }
     
-    public String getCondominiumCode() {
-        return condominiumCode;
-    }
-
-    public void setcondominiumCode(String condominiumCode) {
-        this.condominiumCode = condominiumCode;
-    }
-    
-    public List<Post> getPostList(){
-    	return this.post;
-    }
-    
-    public void setPostList(List<Post> post){
-    	this.post = post;
-    }
 	
 }

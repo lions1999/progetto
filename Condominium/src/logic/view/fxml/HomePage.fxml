@@ -8,7 +8,7 @@
    <children>
       <ScrollPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
-            <VBox fx:id="scrollBox" />
+            <VBox fx:id="scrollBox" alignment="CENTER" spacing="60.0" />
          </content>
       </ScrollPane>
    </children>

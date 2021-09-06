@@ -1,15 +1,15 @@
 package logic.model;
 
-import java.util.List;
-
 public class UserSingleton {
 
 	private Administrator administrator = null;
-	/*private Resident resident = null;
-	private Owner owner = null;*/	
+	private Resident resident = null;
+	private Owner owner = null;	
+	private String usrId;
 	private Role role;
 	private String code;	
 	private Post post;
+	private String postId;
 
 	private static UserSingleton instance = null;
 
@@ -22,14 +22,29 @@ public class UserSingleton {
 		return instance;
 	}
 	
-/*	public void setUserID(int id) {
-		this.id = id;
+	public void setUserID(String usrId) {
+		this.usrId = usrId;
 	}
 	
-	public int getUserID() {
-		return this.id;
-	}*/
+	public String getUserID() {
+		return this.usrId;
+	}
+	
+	public Resident getResident() {
+		return resident;
+	}
 
+	public void setResident(Resident resident) {
+		this.resident = resident;
+	}
+
+	public Owner getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Owner owner) {
+		this.owner = owner;
+	}
 	public void setAdministrator(Administrator user) {
 		this.administrator = user;
 	}
@@ -37,7 +52,6 @@ public class UserSingleton {
 	public Administrator getAdministrator() {
 		return this.administrator;
 	}
-
 
 	public void setCode(String code) {
 		this.code = code;
@@ -62,12 +76,24 @@ public class UserSingleton {
 	public void setPost(Post post) {
 		 this.post = post;
 	}
+	
+	public void setPostId(String postId) {
+		this.postId = postId;
+	}
+	
+	public String getPostId() {
+		return this.postId;
+	}
 
 	public void clearState() {
+		this.setUserID(null);
 		this.setCode(null);
 		this.setRole(null);
 		this.setAdministrator(null);
+		this.setResident(null);
+		this.setOwner(null);
 		this.setPost(null);
+		this.setPostId(null);
 	}
 
 }

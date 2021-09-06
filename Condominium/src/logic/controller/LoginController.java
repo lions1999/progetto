@@ -6,23 +6,30 @@ import logic.controller.exception.InvalidInputException;
 import logic.dao.SqlDAO;
 import logic.model.UserSingleton;
 import logic.model.Administrator;
+import logic.model.Owner;
+import logic.model.Resident;
 
 public class LoginController {
-	private SqlDAO ourDB = new SqlDAO();
+	private SqlDAO ourDb = new SqlDAO();
 	private static UserSingleton sg = UserSingleton.getInstance();
 	
 	public void login(UserBean bean) throws InvalidInputException, SQLException {
 		if (checkBean(bean)) {			
-			String userId = ourDB.checkUserID(bean.getEmail(), bean.getCondominiumCode());
-			sg.setRole(ourDB.checkRole(ourDB.checkRoleId(userId)));
+			sg.setUserID(ourDb.checkUserID(bean.getEmail(), bean.getCondominiumCode()));
+			sg.setCode(bean.getCondominiumCode());
+			sg.setRole(ourDb.checkRole(ourDb.checkRoleId(sg.getUserID())));
 				switch (sg.getRole()) {
-					case ADMINISTRATOR:
-						Administrator admin = ourDB.loadAdminbyID(userId);
+					case ADMINISTRATOR:						
+						Administrator admin = ourDb.loadAdminbyID(sg.getUserID());						
 						sg.setAdministrator(admin);
 						break;
 					case OWNER:
+						Owner owner = ourDb.loadOwnerByID(sg.getUserID());
+						sg.setOwner(owner);
 						break;
 					case RESIDENT:
+						Resident resident = ourDb.loadResidentByID(sg.getUserID());
+						sg.setResident(resident);
 						break;				
 					default:
 						break;
@@ -33,7 +40,7 @@ public class LoginController {
 	}
 		
 	public boolean checkBean(UserBean bean) throws SQLException{
-		return ourDB.checkLogin( bean.getEmail(),bean.getCondominiumCode()).equals(bean.getPassword());
+		return ourDb.checkLogin( bean.getEmail(),bean.getCondominiumCode()).equals(bean.getPassword());
 	}
 	
 }

@@ -1,14 +1,10 @@
 package logic.view;
 
-import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -22,10 +18,8 @@ import logic.model.UserSingleton;
 
 public class MainView extends Application implements Initializable {
     
-	private MainViewController mainController = new MainViewController();
 	private ViewController view = new ViewController();
 	private static UserSingleton sg = UserSingleton.getInstance();
-	private PostView post = new PostView();
     
     @FXML
     private BorderPane mainPage;
@@ -79,19 +73,32 @@ public class MainView extends Application implements Initializable {
 	
     @Override
     public void initialize(URL location, ResourceBundle resources){
-    	lbnome.setText(sg.getAdministrator().getName());
+    	Pane pane = view.getPage("HomePage");
+    	paneSize(pane);
+    	mainPage.setCenter(pane);
        	btnColor(btnHome);
        	btnColor(btnMeeting);
        	btnColor(btnSignout);
-       	btnColor(btnApartmentinfo);       
-	  } 
+       	btnColor(btnApartmentinfo); 
+       	tfCondominiumCode.setText(sg.getCode());
+       	switch (sg.getRole()) {
+			case ADMINISTRATOR:						
+				lbnome.setText(sg.getAdministrator().getName());
+				break;
+			case OWNER:
+				lbnome.setText(sg.getOwner().getName());
+				break;				
+			case RESIDENT:
+				lbnome.setText(sg.getResident().getName());
+				break;				
+       	}
+    }
 
 	private void paneSize(Pane pane) {
 		pane.setMinHeight(1052);
     	pane.setMinWidth(1360);
 	}  
-    
-    
+       
     private void btnColor(Button btn) {
     	btn.setOnMouseEntered(event -> {
        		btn.setStyle("-fx-background-color : #0A0E3F");

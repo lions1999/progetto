@@ -1,22 +1,19 @@
 package logic.view;
 
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import logic.controller.ViewController;
 import logic.model.UserSingleton;
 
-public class PostView extends Application implements Initializable{
+public class PostView  implements Initializable{
 
-	private ViewController view = new ViewController();
 	UserSingleton sg = UserSingleton.getInstance();
 	
     @FXML
@@ -35,13 +32,24 @@ public class PostView extends Application implements Initializable{
     private ImageView postImg;
     
     @Override
-	  public void initialize(URL location, ResourceBundle resources){
+	public void initialize(URL location, ResourceBundle resources){
     	usrName.setText(sg.getPost().getUser());
+    	posTxt.setText(sg.getPost().getText());
+    	posTxt.setEditable(false);
+    	InputStream input = sg.getPost().getImage();
+    	try {
+    	if (input != null && input.available() > 1) {
+            Image imge = new Image(input);
+            postImg.setPreserveRatio(true);
+            postImg.setFitHeight(200);
+            postImg.setFitWidth(590);
+            postImg.setImage(imge);
+    	}
+    	}catch(Exception e){
+    		
+    	}
     }
     
-    @Override
-	public void start(Stage primaryStage) {		
-		view.loadPage("Post", primaryStage);
-		
-    }
+
+
 }

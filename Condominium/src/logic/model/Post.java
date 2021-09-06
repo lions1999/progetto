@@ -7,7 +7,7 @@ public class Post {
 	private String usr;
 	private InputStream img;
 	private String text;
-	
+		
 	
 	public Post(String usr,String text,InputStream img){
 		this.usr = usr;
@@ -38,4 +38,5 @@ public class Post {
 	public void setText(String text) {
 		this.text = text;
 	}
+
 }

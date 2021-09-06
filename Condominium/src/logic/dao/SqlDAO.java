@@ -1,8 +1,11 @@
 package logic.dao;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -10,7 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import logic.model.Administrator;
+import logic.model.Owner;
 import logic.model.Post;
+import logic.model.Resident;
 import logic.dao.queries.SimpleQueries;
 import logic.model.Role;
 
@@ -20,6 +25,7 @@ public class SqlDAO {
 	private static final String USER = "condominium";
 	private static final String PASSWORD = "ispw2021";
 	
+	private PreparedStatement pstmt;
 	private Statement stmt;
 	private Connection conn;
 	
@@ -28,12 +34,12 @@ public class SqlDAO {
 	private String usrName;
 	private String getID;
 	private String pwd;
-	private String condominiumCode;
 	private String condominium;
 	
 	public SqlDAO() {
 		this.stmt = null;
 		this.conn = null;
+		this.pstmt = null;
 	}
 	
 	private void connect() throws SQLException {
@@ -58,15 +64,51 @@ public class SqlDAO {
 				String userId = id;
 				String userName = rs.getString("user_name");
 				String userEmail = rs.getString("user_email");
-				String userPwd = rs.getString("user_pwd");
-				String userCc = rs.getString("user_cc");				
-				admin = new Administrator(userId,userName,userEmail,userPwd,userCc,checkListPost(userCc));
+				String userPwd = rs.getString("user_pwd");			
+				admin = new Administrator(userId,userName,userEmail,userPwd);
             }									
 		} finally {
 			disconnect();
 		}
 		return admin;
 	}
+	
+	public Owner loadOwnerByID(String id) throws SQLException {
+		Owner owner = null;
+		try {
+			connect();
+			ResultSet rs = SimpleQueries.loadOwnerbyID(stmt,id);
+			if(rs.next()) {
+				String userId = id;
+				String userName = rs.getString("user_name");
+				String userEmail = rs.getString("user_email");
+				String userPwd = rs.getString("user_pwd");			
+				owner = new Owner(userId,userName,userEmail,userPwd);
+            }									
+		} finally {
+			disconnect();
+		}
+		return owner;
+	}
+
+	public Resident loadResidentByID(String id) throws SQLException {
+		Resident resident = null;
+		try {
+			connect();
+			ResultSet rs = SimpleQueries.loadResidentbyID(stmt,id);
+			if(rs.next()) {
+				String userId = id;
+				String userName = rs.getString("user_name");
+				String userEmail = rs.getString("user_email");
+				String userPwd = rs.getString("user_pwd");			
+				resident = new Resident(userId,userName,userEmail,userPwd);
+            }									
+		} finally {
+			disconnect();
+		}
+		return resident;
+	}
+	
 		
 	public String checkUserID(String email,String condominiumCode) throws SQLException{
 		 try {        	
@@ -122,19 +164,6 @@ public class SqlDAO {
         return this.roleId;
 	}
 		
-	public String checkCondominiumCode(String email) throws SQLException {			               
-        try {      	
-            connect();            
-            ResultSet rs = SimpleQueries.selectCondominiumCode(stmt, email);                                 
-            if(rs.next()) {
-            	this.condominiumCode = rs.getString("CodiceCondominioFK");
-            }            
-        } finally {        	
-                disconnect();
-        }
-        return this.condominiumCode;
-	}
-
 	public  String checkCondominium(String condCode) throws SQLException {		       
 		try {    	
 			connect();         
@@ -148,38 +177,6 @@ public class SqlDAO {
 	    	return this.condominium;
 		}
 
-	public  InputStream checkImagePost(String id,String codiceCondominio) throws SQLException {			 
-		ResultSet rs = null;
-		InputStream input = null;     
-		try {   	
-			connect();       
-			rs = SimpleQueries.selectPostImage(stmt,id,codiceCondominio);                              	
-			if(rs.next()) {       	
-				input = rs.getBinaryStream("Image");
-			}      
-		} finally {
-			disconnect();
-		}   
-		return input;
-	}
-
-//	public Post checkPost(String postId) throws SQLException{
-//		Post post = null;
-//		ResultSet rs = null; 
-//		try {   	
-//			connect();       
-//			rs = SimpleQueries.selectPost(stmt,postId);                              	
-//			if(rs.next()) {       	
-//				String postUsr = rs.getString("post_usr");
-//				String postText = rs.getString("post_txt");
-//				InputStream postImg = rs.getBinaryStream("post_img");			
-//				post = new Post(postUsr,postText,postImg);
-//			}      
-//		} finally {
-//			disconnect();
-//		}   
-//		return post;
-//	}
 	public String checkNameByID(String id)throws SQLException {
 		try {    	
 			connect();         
@@ -205,8 +202,7 @@ public class SqlDAO {
 				String postText = rs.getString("post_txt");
 				InputStream postImg = rs.getBinaryStream("post_img");			
 				post = new Post(checkNameByID(postUsr),postText,postImg);
-				list.add(post);
-				
+				list.add(post);				
 			}
 		} finally {
 			disconnect();
@@ -214,5 +210,28 @@ public class SqlDAO {
 		return list;
 	}
 	
+	public void addPost(String postId,String usrId,String txt,File file,String cc) throws SQLException{
+		try {
+			try {
+				InputStream input = new FileInputStream(file);
+				DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+				conn = DriverManager.getConnection(URL,USER,PASSWORD);
+				String sql = "INSERT INTO posts (post_id, post_usr, post_cc, post_txt, post_img) VALUES (?, ?, ?, ?, ?)";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, postId);
+				pstmt.setString(2, usrId);
+				pstmt.setString(3, cc);
+				pstmt.setString(4, txt);
+				pstmt.setBinaryStream(5, input, (int) file.length());				
+				pstmt.executeUpdate();
+			}catch (Exception e) {
+				
+			}
+			
+		} finally {
+			disconnect();
+		}
+	}
+
 }
 	

@@ -5,11 +5,11 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="rootId" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.view.PostView">
+<AnchorPane fx:id="rootId" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white; -fx-border-color: #0C39FF;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.view.PostView">
    <children>
       <Label fx:id="usrName" layoutX="109.0" layoutY="34.0" text="Label" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="35.0" />
-      <ImageView fx:id="usrImg" fitHeight="70.0" fitWidth="80.0" layoutX="25.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
-      <TextField fx:id="posTxt" layoutY="97.0" prefHeight="26.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
-      <ImageView fx:id="postImg" fitHeight="200.0" fitWidth="594.0" layoutX="3.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="150.0" />
+      <ImageView fx:id="usrImg" fitHeight="70.0" fitWidth="80.0" layoutX="25.0" layoutY="17.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+      <TextField fx:id="posTxt" editable="false" layoutY="97.0" prefHeight="26.0" prefWidth="600.0" style="-fx-background-color: trasparent;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
+      <ImageView fx:id="postImg" fitHeight="200.0" fitWidth="594.0" layoutX="3.0" layoutY="125.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="150.0" />
    </children>
 </AnchorPane>
