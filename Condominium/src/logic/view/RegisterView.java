@@ -1,5 +1,7 @@
 package logic.view;
 
+import java.sql.SQLException;
+
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,6 +13,7 @@ import javafx.stage.Stage;
 import logic.bean.UserBean;
 import logic.controller.RegisterController;
 import logic.controller.ViewController;
+import logic.controller.exception.InvalidInputException;
 import logic.model.Role;
 
 public class RegisterView extends Application{
@@ -18,6 +21,7 @@ public class RegisterView extends Application{
 	private ViewController view = new ViewController();	
 	private Role role;
 	private String noRole = "No Role Selected";
+	private String roleId;
 
     @FXML
     private TextField tfName;
@@ -30,8 +34,6 @@ public class RegisterView extends Application{
     @FXML
     private PasswordField tfOkPwd;
     @FXML
-    private MenuItem mnuAdmin;
-    @FXML
     private MenuItem mnuResident;
     @FXML
     private MenuItem mnuOwner;
@@ -43,10 +45,6 @@ public class RegisterView extends Application{
     private Button btnSignup;
     @FXML
     private Button btnSignin;
-    @FXML
-    void onMnuAdminClick() {
-    	lbRole.setText(mnuAdmin.getText());
-    }
     @FXML
     void onMnuResidentClick() {
     	lbRole.setText(mnuResident.getText());
@@ -62,29 +60,15 @@ public class RegisterView extends Application{
     }
 
     @FXML
-    void onSignupClick(){
-    	if (tfName.getText().isEmpty() || tfSurname.getText().isEmpty() || tfEmail.getText().isEmpty() || 
-    		tfPassword.getText().isEmpty() || tfOkPwd.getText().isEmpty()) {   		
-    		alertDisplay("Not enough Credentials");
-    		clearState();    	
-    	} else if(lbRole.getText().equals(noRole)) {
-    		alertDisplay(noRole);
-    		clearState();	
-    	} else if (tfCondominiumCode.getText().isEmpty()) {
-    		alertDisplay("No CC");
-    		clearState(); 
-    	} else if (!tfPassword.getText().equals(tfOkPwd.getText())){
-    		alertDisplay("incorrect pass");
-    		clearState(); 
-    	} else { 
-    		UserBean bean = registerBean(tfName.getText(),tfSurname.getText(),tfEmail.getText(),tfPassword.getText(),Role.valueOf(lbRole.getText()),tfCondominiumCode.getText());
+    void onSignupClick()throws InvalidInputException, SQLException{
+    		UserBean bean = registerBean(tfName.getText(),tfSurname.getText(),tfEmail.getText(),tfPassword.getText(),lbRole.getText(),tfCondominiumCode.getText());
     		RegisterController controller = new RegisterController();
     		try {
-    		
-    		} catch (Exception e){
-    			
+    			controller.registration(bean);  		
+    		} catch ( InvalidInputException e){
+    			clearState();
+    			alertDisplay("Not enough/Incorrect Credentials");
     		}
-    	}
     }
     
     private void alertDisplay(String message){
@@ -102,7 +86,7 @@ public class RegisterView extends Application{
     	tfCondominiumCode.setText("");
     }
     
-    public UserBean registerBean(String name,String surname,String email, String password,Role role,String condominiumCode) {
+    public UserBean registerBean(String name,String surname,String email, String password,String role,String condominiumCode) {
 		UserBean user = new UserBean();
 		user.setName(name);
 		user.setSurname(surname);

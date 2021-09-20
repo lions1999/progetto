@@ -15,12 +15,17 @@ import java.util.List;
 import logic.model.Administrator;
 import logic.model.Owner;
 import logic.model.Post;
+import logic.model.Request;
 import logic.model.Resident;
+import logic.controller.exception.InvalidInputException;
 import logic.dao.queries.SimpleQueries;
 import logic.model.Role;
+import logic.model.User;
+import logic.model.UserSingleton;
 
 public class SqlDAO {
 				
+	UserSingleton sg = UserSingleton.getInstance();
 	private static final String URL = "jdbc:mysql://localhost:3306/condominium_db";
 	private static final String USER = "condominium";
 	private static final String PASSWORD = "ispw2021";
@@ -29,6 +34,7 @@ public class SqlDAO {
 	private Statement stmt;
 	private Connection conn;
 	
+	private String lastId;
 	private Role role;
 	private String roleId;
 	private String usrName;
@@ -55,17 +61,18 @@ public class SqlDAO {
             conn.close();
 	}
 	
-	public Administrator loadAdminbyID(String id) throws SQLException {
+	public Administrator loadAdminbyID(String id) throws SQLException ,InvalidInputException{
 		Administrator admin = null;
 		try {
 			connect();
-			ResultSet rs = SimpleQueries.loadAdminbyID(stmt,id);
+			ResultSet rs = SimpleQueries.loadUserByID(stmt,id);
 			if(rs.next()) {
 				String userId = id;
 				String userName = rs.getString("user_name");
 				String userEmail = rs.getString("user_email");
-				String userPwd = rs.getString("user_pwd");			
-				admin = new Administrator(userId,userName,userEmail,userPwd);
+				String userPwd = rs.getString("user_pwd");
+				String userCc = rs.getString("user_cc");
+				admin = new Administrator(userId,userName,userEmail,userPwd,userCc,checkListRequest(userCc));
             }									
 		} finally {
 			disconnect();
@@ -73,17 +80,18 @@ public class SqlDAO {
 		return admin;
 	}
 	
-	public Owner loadOwnerByID(String id) throws SQLException {
+	public Owner loadOwnerByID(String id) throws SQLException,InvalidInputException {
 		Owner owner = null;
 		try {
 			connect();
-			ResultSet rs = SimpleQueries.loadOwnerbyID(stmt,id);
+			ResultSet rs = SimpleQueries.loadUserByID(stmt,id);
 			if(rs.next()) {
 				String userId = id;
 				String userName = rs.getString("user_name");
 				String userEmail = rs.getString("user_email");
-				String userPwd = rs.getString("user_pwd");			
-				owner = new Owner(userId,userName,userEmail,userPwd);
+				String userPwd = rs.getString("user_pwd");
+				String userCc = rs.getString("user_cc");
+				owner = new Owner(userId,userName,userEmail,userPwd,userCc);
             }									
 		} finally {
 			disconnect();
@@ -91,17 +99,18 @@ public class SqlDAO {
 		return owner;
 	}
 
-	public Resident loadResidentByID(String id) throws SQLException {
+	public Resident loadResidentByID(String id) throws SQLException,InvalidInputException{
 		Resident resident = null;
 		try {
 			connect();
-			ResultSet rs = SimpleQueries.loadResidentbyID(stmt,id);
+			ResultSet rs = SimpleQueries.loadUserByID(stmt,id);
 			if(rs.next()) {
 				String userId = id;
 				String userName = rs.getString("user_name");
 				String userEmail = rs.getString("user_email");
-				String userPwd = rs.getString("user_pwd");			
-				resident = new Resident(userId,userName,userEmail,userPwd);
+				String userPwd = rs.getString("user_pwd");
+				String userCc = rs.getString("user_cc");
+				resident = new Resident(userId,userName,userEmail,userPwd,userCc);
             }									
 		} finally {
 			disconnect();
@@ -197,12 +206,33 @@ public class SqlDAO {
 		try {
 			connect();
 			rs = SimpleQueries.selectListPost(stmt,codiceCondominio);
-			while(rs.next()) {			
+			while(rs.next()) {	
+				String postId = rs.getString("post_id");
 				String postUsr = rs.getString("post_usr");
 				String postText = rs.getString("post_txt");
 				InputStream postImg = rs.getBinaryStream("post_img");			
-				post = new Post(checkNameByID(postUsr),postText,postImg);
+				post = new Post(postId,checkNameByID(postUsr),postText,postImg);
 				list.add(post);				
+			}
+		} finally {
+			disconnect();
+		}   
+		return list;
+	}
+	
+	public List<Request> checkListRequest(String codiceCondominio)throws SQLException{
+		List<Request> list = new ArrayList<>();
+		Request req = null;
+		ResultSet rs = null;
+		try {
+			connect();
+			rs = SimpleQueries.selectListRequest(stmt,codiceCondominio);
+			while(rs.next()) {	
+				String reqId = rs.getString("req_id");
+				String reqUsr = rs.getString("req_usr");
+				String reqText = rs.getString("req_reason");		
+				req = new Request(reqId,checkNameByID(reqUsr),reqText,0);
+				list.add(req);				
 			}
 		} finally {
 			disconnect();
@@ -233,5 +263,61 @@ public class SqlDAO {
 		}
 	}
 
+	public void deletePost(String postId)throws SQLException {
+		try{
+			connect();
+			String sql= "DELETE FROM posts WHERE post_id='"+postId+"'";                     
+			stmt.executeUpdate(sql);
+	    } finally {    	
+	            disconnect();
+	    }		
+	}
+
+	public void removeRequest(String reqId) throws SQLException{
+		try{
+			connect();
+			String sql= "DELETE FROM request WHERE req_id='"+reqId+"'";    
+			System.out.println(sql);
+			stmt.executeUpdate(sql);
+	    } finally {    	
+	            disconnect();
+	    }		
+	}
+
+	public void addRegistrationUser(User user,String roleId) throws SQLException,InvalidInputException{
+		try{
+			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+			conn = DriverManager.getConnection(URL,USER,PASSWORD);
+			String sql= "INSERT INTO registration (reg_id,reg_name, reg_email, reg_pwd, reg_role, reg_cc) VALUES (?,?,?,?,?,?)";    
+			System.out.println(sql);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, loadLatestId("registration","reg_id"));
+			pstmt.setString(2, user.getName());
+			pstmt.setString(3, user.getEmail());
+			pstmt.setString(4, user.getPassword());
+			pstmt.setString(5, roleId);
+			pstmt.setString(6, user.getCode());	
+			pstmt.executeUpdate();
+	    } finally {    	
+	            disconnect();
+	    }		
+	}
+
+	public String loadLatestId(String table,String column) throws SQLException{
+		ResultSet rs = null;
+		try{
+			connect();
+			rs = SimpleQueries.selectLastId(stmt,table,column);
+			if(rs.next()) {
+				this.lastId = rs.getString(column);
+				int id = Integer.parseInt(lastId);
+				this.lastId = Integer.toString(++id);
+			}        		
+	    } finally {    	
+	            disconnect();
+	    }	
+		return this.lastId;
+	}
+	
 }
 	

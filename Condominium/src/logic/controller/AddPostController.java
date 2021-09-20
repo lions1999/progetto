@@ -19,7 +19,4 @@ public class AddPostController {
 		} 
 		return file;
 	}
-	
-	
-	
 }

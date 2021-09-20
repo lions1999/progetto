@@ -9,6 +9,7 @@ public class UserSingleton {
 	private Role role;
 	private String code;	
 	private Post post;
+	private Request req;
 	private String postId;
 
 	private static UserSingleton instance = null;
@@ -84,7 +85,18 @@ public class UserSingleton {
 	public String getPostId() {
 		return this.postId;
 	}
+	
+	
+	public Request getReq() {
+		return this.req;
+	}
 
+	public void setReq(Request req) {
+		this.req = req;
+	}
+	
+	
+	
 	public void clearState() {
 		this.setUserID(null);
 		this.setCode(null);
@@ -94,6 +106,9 @@ public class UserSingleton {
 		this.setOwner(null);
 		this.setPost(null);
 		this.setPostId(null);
+		this.setReq(null);
 	}
+
+
 
 }

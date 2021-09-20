@@ -1,20 +1,38 @@
- package logic.view;
+package logic.view;
 
-import javafx.application.Application;
-import javafx.stage.Stage;
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import logic.controller.ViewController;
+import logic.model.Request;
 import logic.model.UserSingleton;
 
-public class MeetingView extends Application{
+public class MeetingView implements Initializable{
 
-	
 	private ViewController view = new ViewController();
-	private static UserSingleton sg = UserSingleton.getInstance();
+	UserSingleton sg = UserSingleton.getInstance();
 	
-	@Override
-	public void start(Stage primaryStage) {		
-		view.loadPage("Meeting", primaryStage);
-	}	
-	
-	
+    @FXML
+    private VBox scrollBox;
+
+    @Override
+	public void initialize(URL location, ResourceBundle resources){
+	  	try {
+	  		List<Request> req = sg.getAdministrator().getListRequest();
+	  		for(int i=0;i<req.size();i++) {	  			
+	  			sg.setReq(req.get(i));
+	  			sg.getReq().setPos(i);	  			
+	  			Pane pane = view.getPage("Item");
+				scrollBox.getChildren().add(pane);	  			
+	  		}
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		
+	  }
+    
 }

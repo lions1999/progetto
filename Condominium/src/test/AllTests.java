@@ -35,17 +35,17 @@ public class AllTests {
 //	}
 //	
 //
-	@Test
-	public void TestImagePostDAO()throws  Exception{
-		SqlDAO log = new SqlDAO();		
-		List<String> list = new ArrayList<>();
-		list = log.checkListPost("67890");
-		//(list.get(0));
-		//System.out.println(list);
-		for (int i=0;i<=list.size();i++) {
-			System.out.println(log.checkPost(list.get(i)).getUser());
-		}
-	}
+//	@Test
+//	public void TestImagePostDAO()throws  Exception{
+//		SqlDAO log = new SqlDAO();		
+//		List<String> list = new ArrayList<>();
+//		list = log.checkListPost("67890");
+//		//(list.get(0));
+//		//System.out.println(list);
+//		for (int i=0;i<=list.size();i++) {
+//			System.out.println(log.checkPost(list.get(i)).getUser());
+//		}
+//	}
 //	
 //	@Test
 //	public void TestImagePostController()throws  Exception{
@@ -63,5 +63,11 @@ public class AllTests {
 //		SqlDAO log = new SqlDAO();		
 //		System.out.println( log.checkListPost("67890"));
 //	}
-	
+//	@Test
+//	public void TestLoadLastid() throws  Exception{
+//		SqlDAO log = new SqlDAO();		
+//		System.out.println( log.loadLatestId("registration","reg_id"));
+//		System.out.println( log.loadLatestId("users","user_id"));
+//	}
+//	
 }

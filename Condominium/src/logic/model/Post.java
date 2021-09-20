@@ -4,17 +4,27 @@ import java.io.InputStream;
 
 public class Post {
 
+	private String id;
 	private String usr;
 	private InputStream img;
 	private String text;
 		
 	
-	public Post(String usr,String text,InputStream img){
-		this.usr = usr;
-		this.img = img;
-		this.text = text;
+	public Post(String id,String usr,String text,InputStream img){
+		this.setId(id);
+		this.setUser(usr);
+		this.setText(text);
+		this.setImage(img);;
 	}
 	
+	public String getId() {
+		return this.id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public void setUser(String usr) {
 		this.usr = usr;
 	}
@@ -38,5 +48,4 @@ public class Post {
 	public void setText(String text) {
 		this.text = text;
 	}
-
 }

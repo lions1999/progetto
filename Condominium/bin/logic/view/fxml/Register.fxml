@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="950.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.view.RegisterView">
+<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="950.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.view.RegisterView">
    <children>
       <AnchorPane layoutX="-1.0" layoutY="-1.0" prefHeight="650.0" prefWidth="400.0" style="-fx-background-color: #0C39FF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -70,7 +70,6 @@
             </PasswordField>
             <MenuButton mnemonicParsing="false" prefWidth="450.0" stylesheets="@fullpackstyling.css" text="Role in your condominium?">
               <items>
-                <MenuItem fx:id="mnuAdmin" mnemonicParsing="false" onAction="#onMnuAdminClick" text="Administrator" />
                 <MenuItem fx:id="mnuResident" mnemonicParsing="false" onAction="#onMnuResidentClick" text="Resident" />
                   <MenuItem fx:id="mnuOwner" mnemonicParsing="false" onAction="#onMnuOwnerClick" text="Owner" />
               </items>
